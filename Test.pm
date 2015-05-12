@@ -10,17 +10,33 @@ has ua => (
   }
 );
 
+has project => (
+  is       => 'ro',
+  required => 1,
+);
+
+has host => (
+  is => 'rw',
+  default => sub { "127.0.0.1" },
+);
+
+has port => (
+  is      => 'rw',
+  default => sub { "80" },
+);
+
 sub test {
   my ($self, $param) = @_;
 
   $param->{location} = ( ref $param->{location} eq "ARRAY" ? $param->{location} : [ $param->{location} ] );
-  $param->{port}     = ( ref $param->{port} eq "CODE" ? $param->{port}->() : $param->{port} );
-  $param->{host}     = ( ref $param->{host} eq "CODE" ? $param->{host}->() : $param->{host} );
+
+  my $host = $self->host;
+  my $port = $self->port;
 
   for my $loc ( @{ $param->{location} } ) {
-    my $res = $self->ua->get("http://$param->{host}:$param->{port}$loc");
+    my $res = $self->ua->get("http://$host:$port$loc");
     if($res->code != 200) {
-      die "Error testing url: http://$param->{host}:$param->{port}$loc";
+      die "Error testing url: http://$host:$port$loc";
     }
   }
 }
