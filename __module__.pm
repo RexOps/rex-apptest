@@ -1,3 +1,9 @@
+#
+# (c) 2015 FILIADATA GmbH
+# 
+# vim: set ts=2 sw=2 tw=0:
+# vim: set expandtab:
+
 package Apptest;
 
 
