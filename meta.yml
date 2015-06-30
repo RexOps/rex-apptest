@@ -1,3 +1,6 @@
 Name: AppTest
 Description: Test your Web Application
-License: internal use
+Author: FILIADATA GmbH
+License: Apache 2.0
+PerlRequire:
+  - Mojolicious
