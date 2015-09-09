@@ -25,6 +25,11 @@ has port => (
   default => sub { "80" },
 );
 
+has expected_code => (
+  is      => 'rw',
+  default => sub { 200 },
+);
+
 sub test {
   my ($self, $param) = @_;
 
@@ -35,7 +40,7 @@ sub test {
 
   for my $loc ( @{ $param->{location} } ) {
     my $res = $self->ua->get("http://$host:$port$loc");
-    if($res->code != 200) {
+    if($res->code != $self->expected_code) {
       die "Error testing url: http://$host:$port$loc";
     }
   }
