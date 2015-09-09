@@ -18,7 +18,6 @@ task "test", group => "servers", sub {
   $param->{test_object} ||= "Apptest::Test";
 
   my $test = $param->{test_object}->new(project => $param->{project}, expected_code => $param->{expected_code});
-  print Dumper $param->{project}->application->get_deployable_instance();
   $test->port($param->{project}->application->get_deployable_instance()->port);
   
 
