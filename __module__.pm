@@ -17,7 +17,11 @@ task "test", group => "servers", sub {
 
   $param->{test_object} ||= "Apptest::Test";
 
-  my $test = $param->{test_object}->new(project => $param->{project}, expected_code => $param->{expected_code});
+  my $test = $param->{test_object}->new(
+    host          => connection->server,
+    project       => $param->{project},
+    expected_code => $param->{expected_code},
+  );
   $test->port($param->{project}->application->get_deployable_instance()->port);
   
 
