@@ -2,6 +2,7 @@ package Apptest::Test;
 
 use Moose;
 use Apptest::UserAgent;
+use Data::Dumper;
 
 has ua => (
   is      => 'ro',
@@ -39,8 +40,11 @@ sub test {
   my $port = $self->port;
 
   for my $loc ( @{ $param->{location} } ) {
+    Rex::Logger::info("Testing: http://$host:$port$loc");
     my $res = $self->ua->get("http://$host:$port$loc");
     if($res->code != $self->expected_code) {
+      Rex::Logger::info("Error testing.");
+      print Dumper $res;
       die "Error testing url: http://$host:$port$loc";
     }
   }
