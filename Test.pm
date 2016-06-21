@@ -43,7 +43,7 @@ sub test {
   my $port = $self->port;
 
   for my $loc ( @{ $param->{location} } ) {
-    my @failuers;
+    my @failures;
     Rex::Logger::info("Testing: http://$host:$port$loc");
     my $res = $self->ua->get("http://$host:$port$loc");
 
