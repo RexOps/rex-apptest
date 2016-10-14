@@ -60,6 +60,7 @@ sub test {
         . "Status Line: "
         . $res->message . "\n";
       sleep 1;
+      $res = $self->ua->get("http://$host:$port$loc");
     }
     Rex::Logger::info("Done Testing.);
   }
