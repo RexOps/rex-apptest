@@ -47,7 +47,11 @@ sub test {
     Rex::Logger::info("Testing: http://$host:$port$loc");
     my $res = $self->ua->get("http://$host:$port$loc");
 
-    if ( $res->code != $self->expected_code && scalar @failures < 3 ) {
+    while ( $res->code != $self->expected_code ) {
+      if (scalar @failures > 3) {
+        Rex::Logger::info( $_, "error" ) for @failures;
+        die "Test failed.";
+      }
       Rex::Logger::info("Error testing. Retrying...");
       push @failures,
           "Error testing url: http://$host:$port$loc\n"
@@ -56,13 +60,10 @@ sub test {
         . "Status Line: "
         . $res->message . "\n";
       sleep 1;
+      $res = $self->ua->get("http://$host:$port$loc");
     }
-    elsif ( $res->code != $self->expected_code && scalar @failures >= 3 ) {
-      Rex::Logger::info( $_, "error" ) for @failures;
-      die "Test failed.";
-    }
+    Rex::Logger::info("Done Testing.);
   }
-
 }
 
 1;
