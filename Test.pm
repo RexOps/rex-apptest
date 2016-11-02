@@ -62,7 +62,7 @@ sub test {
       sleep 1;
       $res = $self->ua->get("http://$host:$port$loc");
     }
-    Rex::Logger::info("Done Testing.);
+    Rex::Logger::info("Done Testing.");
   }
 }
 
