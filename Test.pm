@@ -48,7 +48,7 @@ sub test {
     my $res = $self->ua->get("http://$host:$port$loc");
 
     while ( $res->code != $self->expected_code ) {
-      if (scalar @failures > 3) {
+      if (scalar @failures > 10) {
         Rex::Logger::info( $_, "error" ) for @failures;
         die "Test failed.";
       }
@@ -59,7 +59,7 @@ sub test {
         . $res->code . "\n"
         . "Status Line: "
         . $res->message . "\n";
-      sleep 1;
+      sleep 5;
       $res = $self->ua->get("http://$host:$port$loc");
     }
     Rex::Logger::info("Done Testing.");
